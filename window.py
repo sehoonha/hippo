@@ -11,6 +11,7 @@ class Window(PyDartQtWindow):
 
     def initActions(self):
         PyDartQtWindow.initActions(self)
+        self.exportAction = self.createAction('&Export', self.exportEvent)
         # self.loadAction = self.createAction('&Load', self.loadEvent)
         # self.saveAction = self.createAction('&Save', self.saveEvent)
         # self.printAction = self.createAction('Print', self.printEvent)
@@ -36,6 +37,7 @@ class Window(PyDartQtWindow):
         PyDartQtWindow.initMenu(self)
         # self.fileMenu.addAction(self.loadAction)
         # self.fileMenu.addAction(self.saveAction)
+        self.fileMenu.addAction(self.exportAction)
 
     def idleTimerEvent(self):
         PyDartQtWindow.idleTimerEvent(self)
@@ -63,14 +65,18 @@ class Window(PyDartQtWindow):
         # self.sim.motion.save(filename)
         self.logger.info('save file: ' + filename)
 
+    def exportEvent(self):
+        self.sim.motion.export_mtn('output.mtn')
+
     def printEvent(self):
         print('print event')
 
     def cam0Event(self):
         """ Change the default camera """
-        self.glwidget.tb = Trackball(phi=-3.6, theta=-6.9, zoom=1.0,
-                                     rot=[-0.07, -0.59, -0.06, 0.80],
-                                     trans=[-0.53, -0.15, -0.85])
+        self.glwidget.tb = Trackball(phi=6.3, theta=-21.9, zoom=1.0,
+                                     rot=[-0.11, -0.62, -0.07, 0.77],
+                                     trans=[-0.51, -0.10, -0.97])
+
         # self.glwidget.tb = Trackball(phi=-2.1, theta=-6.6, zoom=1.0,
         #                              rot=[-0.06, 0.01, -0.02, 1.00],
         #                              trans=[-0.73, -0.19, -3.47])
